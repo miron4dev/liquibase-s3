@@ -1,0 +1,12 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:s3="http://www.liquibase.org/xml/ns/dbchangelog-ext/s3"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <include file="changelog.initial.schema.xml" relativeToChangelogFile="true"/>
+
+    <changeSet id="insert some data" author="miron4dev">
+        <s3:s3File path="miron-test/data/dummy.sql" dbms="h2"
+                   stripComments="true" splitStatements="true"/>
+    </changeSet>
+</databaseChangeLog>

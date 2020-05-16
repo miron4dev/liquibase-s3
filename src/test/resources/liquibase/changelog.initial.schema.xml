@@ -1,0 +1,21 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <changeSet id="initial schema" author="miron4dev">
+        <createTable tableName="BADGE">
+            <column name="ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TITLE" type="NVARCHAR(32)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="DESCRIPTION" type="NVARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SCORE" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
