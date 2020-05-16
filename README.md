@@ -1,2 +1,2 @@
-# liquibase-s3
-Liquibase extension to add integration with AWS S3
+# AWS S3 Liquibase Extension
+A liquibase extension adding integration with AWS S3
