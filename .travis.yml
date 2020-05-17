@@ -6,12 +6,12 @@ cache:
 before_install:
   - echo $GPG_SECRET_KEYS | base64 --decode | gpg --import
   - echo $GPG_OWNERTRUST | base64 --decode | gpg --import-ownertrust
+  - mvn versions:set -DremoveSnapshot
 
 install:
-  mvn --settings .travis.settings.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+  mvn clean install
 
 before_deploy:
-  - mvn versions:set -DremoveSnapshot
   - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
   - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
 
@@ -25,7 +25,10 @@ deploy:
   skip_cleanup: 'true'
   name: $project_version
   target_commitish: 'master'
-  tag_name: $project_version
+  tag_name: v$project_version
+
+after_deploy:
+  - mvn --settings .travis.settings.xml deploy -DskipTests -Prelease
 
 notifications:
   email:
