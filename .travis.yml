@@ -18,7 +18,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: $GITHUB_API_KEY
+    secure: o8Z9NmiYj0ePwYCn6DZdAYWlmfvHpTTrxYkfq4dvy1zl1Ezinl6l5Hd2tH6CNtn+rVzl6ZiX7UoV883jmc1dVedeK393befqI+3GSZW48mR1TR+zpYt0XnRspz8TEfAoO49moCGYEp3phVuGpYhWIp8s/g5x96XpgCNmIks19lgAbkJCMSC0lkDDcf6AE9rExHvg4zfZf0C4Y9yUdfzuiHeUgw3OElQMPdlewRCY52+EXBSmnoTT8H1INWJa38CgUwLuaFw9CODZqLMwtowQIIzUflRo6wu2p45oUusfOHY5ZJGCY1OTbcSuLN6e5xhp0Xhp7oLA8XzFktt8nM9S+G+jF9FLaPCSKJTtdOeOaiT+XW//kJWWKJA6tzOqDljJi+fLcDAijNMudzweStj8lbqsyonL/FNc4oaIwfPjlyG9BoPro+6xXTfZ0JZBKmQyiAREhXgBvNIG2DNXRkp6Laz23uViiRUqmbyjLzH4opaYdKBDT4wh+fpyvhIgBG1u1zasGxsVZ6cRaZd2tlVz6HsyLrajx0FDpaMRDSX4YfP9FiGVT3Cw0fw1OptK/HDc1RWGDalzM708GvsFqkxzh2sgxQ5zTADDKQJCg4Sysq/fXL9tRu86OrzuuwP9LSieVn0CT1o5frdiLLVaXvP9bpnv1C95XXbsXMHhyaxzENI=
   file: target/liquibase-s3-${project_version}.jar
   on:
     repo: miron4dev/liquibase-s3
