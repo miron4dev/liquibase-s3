@@ -4,8 +4,8 @@ cache:
     - ~/.m2/repository
 
 before_install:
-  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+  - echo $GPG_SECRET_KEYS | base64 --decode | gpg --import
+  - echo $GPG_OWNERTRUST | base64 --decode | gpg --import-ownertrust
 
 install:
   mvn --settings .travis.settings.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
