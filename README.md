@@ -16,7 +16,7 @@ A liquibase extension adding integration with AWS S3
 </dependency>
 ```
 
-### Declare changeset:
+### Changeset example:
 
 ```xml
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
