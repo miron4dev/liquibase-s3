@@ -9,7 +9,7 @@ before_install:
   - mvn versions:set -DremoveSnapshot
 
 install:
-  mvn clean install
+  mvn clean install -DskipTests
 
 before_deploy:
   - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
