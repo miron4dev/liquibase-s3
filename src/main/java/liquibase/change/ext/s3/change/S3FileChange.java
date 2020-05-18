@@ -20,8 +20,6 @@ import java.io.InputStream;
                 "file. It is useful for complex changes that are not supported through Liquibase's automated refactoring " +
                 "tags such as stored procedures.\n" +
                 "\n" +
-                "The s3File must have the following format: s3://some_bucket_name/path/to/change.sql\n" +
-                "\n" +
                 "The 's3File' tag can also support multiline statements in the same file. Statements can either be " +
                 "split using a ; at the end of the last line of the SQL or a go on its own on the line between the " +
                 "statements can be used.Multiline SQL statements are also supported and only a ; or go statement " +
@@ -35,9 +33,8 @@ import java.io.InputStream;
         priority = ChangeMetaData.PRIORITY_DEFAULT)
 public class S3FileChange extends AbstractSQLChange {
 
-    private static final String S3_PATH = "s3://";
-
-    private String path;
+    private String bucket;
+    private String key;
 
     @Override
     public boolean generateStatementsVolatile(Database database) {
@@ -49,18 +46,22 @@ public class S3FileChange extends AbstractSQLChange {
         return false;
     }
 
-    @DatabaseChangeProperty(description = "The S3 path of the SQL file to load", requiredForDatabase = "all")
-    public String getPath() {
-        return path;
+    @DatabaseChangeProperty(description = "The S3 bucket of the SQL file to load", requiredForDatabase = "all")
+    public String getBucket() {
+        return bucket;
     }
 
-    /**
-     * Sets the file name but setUp must be called for the change to have impact.
-     *
-     * @param fileName The file to use
-     */
-    public void setPath(String fileName) {
-        path = fileName;
+    public void setBucket(String fileName) {
+        bucket = fileName;
+    }
+
+    @DatabaseChangeProperty(description = "The S3 key of the SQL file to load", requiredForDatabase = "all")
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     /**
@@ -82,48 +83,38 @@ public class S3FileChange extends AbstractSQLChange {
 
     @Override
     public void finishInitialization() throws SetupException {
-        if (path == null) {
-            throw new SetupException("<s3File> - No path specified");
+        if (bucket == null) {
+            throw new SetupException("<s3File> - No bucket specified");
         }
-        if (!path.startsWith(S3_PATH)) {
-            throw new SetupException("<s3File> must start with " + S3_PATH);
+        if (key == null) {
+            throw new SetupException("<s3File> - No key specified");
         }
     }
 
     @Override
     public ValidationErrors validate(Database database) {
         ValidationErrors validationErrors = new ValidationErrors();
-        if (StringUtils.trimToNull(getPath()) == null) {
-            validationErrors.addError("'path' is required");
+        if (StringUtils.trimToNull(getBucket()) == null) {
+            validationErrors.addError("'bucket' is required");
+        }
+        if (StringUtils.trimToNull(getKey()) == null) {
+            validationErrors.addError("'key' is required");
         }
         return validationErrors;
     }
 
     @Override
     public String getConfirmationMessage() {
-        return "SQL in file " + path + " executed";
+        return "SQL in file " + bucket + "/" + key + " executed";
     }
 
     @Override
     public InputStream openSqlStream() {
-        if (path == null) {
+        if (bucket == null || key == null) {
             return null;
         }
-        String withoutPrefix = removePrefix(path);
-        if (!withoutPrefix.contains("/")) {
-            throw new IllegalArgumentException("Invalid S3 location specified. Expected to have bucket " +
-                    "and key be separated by '/' slash, but the actual value was: " + path);
-        }
-
-        int firstSlashIndex = withoutPrefix.indexOf("/");
-        String bucket = withoutPrefix.substring(0, firstSlashIndex);
-        String key = withoutPrefix.substring(firstSlashIndex + 1);
 
         return S3ClientDelegator.getObject(bucket, key);
-    }
-
-    private static String removePrefix(String path) {
-        return path.substring(path.indexOf(S3_PATH) + S3_PATH.length());
     }
 
     @Override

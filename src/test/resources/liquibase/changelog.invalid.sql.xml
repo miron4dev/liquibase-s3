@@ -6,7 +6,7 @@
     <include file="changelog.initial.schema.xml" relativeToChangelogFile="true"/>
 
     <changeSet id="insert some incorrect data" author="miron4dev">
-        <s3:s3File path="s3://miron-test/incorrect.sql" dbms="h2"
+        <s3:s3File bucket="miron-test" key="incorrect.sql" dbms="h2"
                    stripComments="true" splitStatements="true"/>
     </changeSet>
 </databaseChangeLog>

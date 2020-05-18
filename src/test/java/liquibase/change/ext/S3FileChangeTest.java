@@ -97,13 +97,6 @@ class S3FileChangeTest {
     void shouldNotApplyChangeSetBecausePathContainsOnlyBucket() throws LiquibaseException {
         Liquibase liquibase = createLiquibase("liquibase/changelog.only.bucket.xml");
 
-        assertThrows(IllegalArgumentException.class, () -> liquibase.update((String) null));
-    }
-
-    @Test
-    void shouldNotApplyChangeSetBecausePathInvalid() throws LiquibaseException {
-        Liquibase liquibase = createLiquibase("liquibase/changelog.invalid.path.xml");
-
         assertThrows(ChangeLogParseException.class, () -> liquibase.update((String) null));
     }
 

@@ -25,7 +25,7 @@ A liquibase extension adding integration with AWS S3
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
     <changeSet id="insert some data" author="miron4dev">
-        <s3:s3File path="s3://miron-test/data/dummy.sql"/>
+        <s3:s3File bucket="miron-test" key="data/dummy.sql"/>
     </changeSet>
 </databaseChangeLog>
 ```
@@ -37,7 +37,8 @@ The `s3File` tag allows you to specify any sql statements and have it stored on 
 
 | Attribute name  | Description | Default value |
 | ------------- | ------------- | ------------- |
-| path  | Path to S3 sql file. It must have the following format: s3://some_bucket_name/path/to/change.sql  | It must be explicitly defined |
+| bucket  | S3 Bucket where sql file is located.  | It must be explicitly defined |
+| key  | S3 key where sql file is located.  | It must be explicitly defined |
 | stripComments  | Set whether SQL should be split into multiple statements.  | true |
 | splitStatements  | Set whether comments should be stripped from the SQL before passing it to the database. | false |
 | encoding  | The encoding of the file containing SQL statements. | UTF-8 |
