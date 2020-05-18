@@ -6,7 +6,7 @@
 
     <groupId>com.miron4dev</groupId>
     <artifactId>liquibase-s3</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A liquibase extension adding integration with AWS S3</description>
