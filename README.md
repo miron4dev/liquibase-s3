@@ -44,3 +44,19 @@ The `s3File` tag allows you to specify any sql statements and have it stored on 
 | encoding  | The encoding of the file containing SQL statements. | UTF-8 |
 | endDelimiter  | The end delimiter used to split statements. | null |
 | dbms  | The DBMS for whose SQL dialect the statement is to be made  | null |
+
+## Configuration:
+
+### S3 Bucket Region
+The extension reads `aws.region` system property during execution.
+
+You can declare the property using Maven by adding this section under `liquibase-maven-plugin` in you pom.xml
+```xml
+<configuration>
+    <systemProperties>
+        <aws.region>eu-west-2</aws.region>
+    </systemProperties>
+</configuration>
+```
+
+NB! If `aws.region` property is missing, than the extension takes the default region **us-east-1**
