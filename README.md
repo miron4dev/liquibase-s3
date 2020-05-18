@@ -59,4 +59,4 @@ You can declare the property using Maven by adding this section under `liquibase
 </configuration>
 ```
 
-NB! If `aws.region` property is missing, than the extension takes the default region **us-east-1**
+NB! If `aws.region` property is missing, than the extension takes **us-east-1** region by default.
