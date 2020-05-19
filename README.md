@@ -6,6 +6,10 @@ A liquibase extension adding integration with AWS S3
 
 ## Integration
 
+### Configure the AWS CLI
+
+https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration
+
 ### Add dependency:
 
 ```xml
